@@ -4,7 +4,7 @@ const timeBtns = document.querySelector('#id-time-list');
 const timeEl = document.querySelector('#id-time');
 const board = document.querySelector('#id-board');
 
-let time = 11;
+let time = 0;
 let score = 0;
 
 startBtn.addEventListener('click', (event) => {
@@ -14,7 +14,7 @@ startBtn.addEventListener('click', (event) => {
 
 timeBtns.addEventListener('click', (event) => {
   if (event.target.classList.contains('time-btn')) {
-    let time = +(event.target.getAttribute('data-time'));
+    time = +(event.target.getAttribute('data-time'));
     startGame();
   }
 })
@@ -23,11 +23,9 @@ board.addEventListener('click', (event) => {
   if (event.target.classList.contains('circle')) {
     score++;
     event.target.remove();
-
+    creatRandomCircles();
   }
 })
-
-startGame();
 
 function startGame() {
   setInterval(decreaseTime, 1000);
@@ -54,7 +52,9 @@ function setTime(value) {
 }
 
 function finishGame() {
-
+  timeEl.parentNode.classList.add('hide');
+  board.innerHTML = `<h2>Игра закончина <br>
+  Вы набрали: <span class="primary">${score}</span> очков</h2>`;
 }
 
 function creatRandomCircles() {
